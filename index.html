@@ -81,18 +81,6 @@
         transition: 0.2s;
     }
 
-    .change .bar1 {
-        transform: translate(0, 11px) rotate(-45deg);
-    }
-
-    .change .bar2 {
-        opacity: 0;
-    }
-
-    .change .bar3 {
-        transform: translate(0, -11px) rotate(45deg);
-    }
-
     #dropdownContent {
         position: absolute;
         top: 50px;
@@ -116,13 +104,14 @@
 </style>
 
 <body onload = "onload()" >
-    <div class="container" onclick="myFunction(this)">
+    <div class="container" onclick="myFunction()">
         <div class="bar1"></div>
         <div class="bar2"></div>
         <div class="bar3"></div>
     </div>
 
     <div id = "dropdownContent">
+        <a href = "info.html"> info </a>
         <a href = "redirector/redirector.html"> redirector </a>
     </div>
     
@@ -159,13 +148,11 @@
             show.style.display = "none"
         }
 
-        function myFunction(x) {
-            x.classList.toggle("change")
-
-        if (show.style.display === "none") {
-            show.style.display = "block"
-        } else {
-            show.style.display = "none"
+        function myFunction() {
+            if (show.style.display === "none") {
+                show.style.display = "block"
+            } else {
+                show.style.display = "none"
             }
         }
     </script>
