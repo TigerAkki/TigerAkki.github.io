@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title> count23 </title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Stick+No+Bills">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka+One">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+</head>
+
+<style>
+    body {
+        background: rgb(22, 22, 22);
+    }  
+    
+    #titleBox {
+        text-align: center;
+        justify-content: center;
+        display: block;
+        width: 100%;
+        height: 75px;
+        font-size: 50px;
+        font-family: Fredoka One;
+        color:rgb(196, 44, 18);
+    }
+
+    #count {
+        text-align: center;
+        justify-content: center;
+        display: block;
+        width: 100%;
+        height: 75px;
+        font-size: 35px;
+        font-family: Fredoka One;
+        color:rgb(196, 44, 18);
+    }
+
+    #spacer {
+        text-align: center;
+        justify-content: center;
+        display: block;
+        width: 100%;
+        height: 30px;
+    }
+
+    #buttons {
+        text-align: center;
+        justify-content: center;
+        display: block;
+        width: 100%;
+        height: 30px;
+    }
+
+    button {
+        font-family: Fredoka One;
+        height: 24px;
+        border-radius: 6px;
+        border-width: 0px;
+        margin-left: 10px;
+        background-color: rgb(196, 44, 18);
+        transition-duration: 0.4s;
+        width: 90px;
+    }
+
+    button:hover {
+        cursor: pointer;
+    }
+       
+</style>
+
+<body onload = "start()">
+
+    <div id = "titleBox">
+        count23
+    </div>
+
+    <div id = "spacer"> </div>
+    <div id = "count"> <text id = "counter"> </text> </div>
+
+    <div id = "buttons">
+        <button id = "plus" onclick = "add()" > + </button>
+        <button id = "minus" onclick = "subtract()" > - </button>
+        <button id = "reset" onclick = "reset()" > reset </button>
+    </div>
+
+    <script>
+        var count = document.getElementById("counter")
+
+        var counted = 0
+
+        function start() {
+            count.innerHTML = counted
+        }
+
+        function add() {
+            counted = counted + 1
+            count.innerHTML = counted
+        }
+
+        function subtract() {
+            counted = counted - 1
+            count.innerHTML = counted
+        }
+
+        function reset() {
+            counted = 0
+            count.innerHTML = counted
+        }
+
+        function square() {
+            counted = counted*counted
+            count.innerHTML = counted
+        }
+
+        function sqrt() {
+            counted = Math.sqrt(counted)
+            count.innerHTML = counted
+        }
+
+        function abs() {
+            counted = Math.abs(counted)
+            count.innerHTML = counted
+        }
+
+        function ceil() {
+            counted = Math.ceil(counted)
+            count.innerHTML = counted
+        }
+
+        function floor() {
+            counted = Math.floor(counted)
+            count.innerHTML = counted
+        }
+
+        document.addEventListener("keydown", (event) => {
+            if (event.code === 'Equal') {
+                add()
+            }
+        })
+
+        document.addEventListener("keydown", (event) => {
+            if (event.code === 'Minus') {
+                subtract()
+            }
+        })
+
+        document.addEventListener("keydown", (event) => {
+            if (event.code === 'Space') {
+                reset()
+            }
+        })
+
+        document.addEventListener("keydown", (event) => {
+            if (event.code === 'Enter') {
+                square()
+            }
+        })
+
+        document.addEventListener("keydown", (event) => {
+            if (event.code === 'Backspace') {
+                sqrt()
+            }
+        })
+
+        document.addEventListener("keydown", (event) => {
+            if (event.code === 'Tab') {
+                abs()
+            }
+        })
+
+        document.addEventListener("keydown", (event) => {
+            if (event.code === 'ArrowUp') {
+                ceil()
+            }
+        })
+
+        document.addEventListener("keydown", (event) => {
+            if (event.code === 'ArrowDown') {
+                floor()
+            }
+        })
+
+    </script>
+
+</body>
+</html>
