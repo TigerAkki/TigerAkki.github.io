@@ -1,0 +1,4 @@
+counter
+
+counts numbers
+can round up and down, square root, and square
