@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> simple notes </title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fuzzy+Bubbles">
+		<link rel="shortcut icon" href="still.ico" type="image/x-icon">
+    </head>
+    <style>
+        /* color palette from https://colorhunt.co/palette/0000001500503f0071fb2576 */
+        body {
+            background-color: #161616;
+        }
+
+        #newNoteContent {
+            width: 100%;
+            height: 150px;
+            padding: 20px 20px;
+            box-sizing: border-box;
+            border: 2px solid;
+            border-radius: 4px;
+            border-color: grey;
+            background-color: #150050;
+            font-size: 16px;
+            font-family:"Fuzzy Bubbles";
+            transition-duration: 0.4s;
+            color: #fb2576;
+        }
+
+        #newNoteContent:focus {
+            background-color: #150050;
+        }
+
+        #newNoteTitle {
+            height: 20px;
+            padding: 20px 20px;
+            box-sizing: border-box;
+            border: 2px solid;
+            border-radius: 4px;
+            border-color: grey;
+            background-color: #150050;
+            margin-bottom: 10px;
+            margin-top: 10px;
+            font-family:"Fuzzy Bubbles";
+            transition-duration: 0.4s;
+            color: #fb2576;
+        }
+
+        #newNoteTitle:focus {
+            background-color: #150050;
+        }
+
+        #newNoteTitleLabel {
+            font-size: 16px;
+            font-family:"Fuzzy Bubbles";
+            font-weight: bold;
+            color: #3F0071;
+        }
+
+        #noteTitle {
+            margin: 10px;
+            font-size: 18px;
+            font-family:"Fuzzy Bubbles";
+            font-weight: bold;
+            color: #3F0071;
+            border: #fb2576 solid 2px;
+            border-radius: 4px;
+            padding: 5px;
+            cursor: pointer;
+        }
+
+        #titleDiv:hover {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        #noteContent {
+            display: inline-block;
+            max-width: 100%;
+            margin-left: 30px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            font-size: 17px;
+            font-family:"Fuzzy Bubbles";
+            color: #3F0071;
+            padding: 20px;
+        }
+
+        .button {
+            transition-duration: 0.4s;
+            display: inline-block;
+            border-radius: 7px;
+            background-color: #fb2576;
+            border: none;
+            color: #3F0071;
+            text-align: center;
+            font-size: 16px;
+            padding: 10px;
+            width: 150px;
+            cursor: pointer;
+            margin: 5px;
+            font-family: "Fuzzy Bubbles";
+            font-weight: bold;
+        }
+
+        .button span {
+            cursor: pointer;
+            display: inline-block;
+            position: relative;
+            transition-duration: 0.4s;
+        }
+
+        .button span:after {
+            content: '\00bb';
+            position: absolute;
+            opacity: 0;
+            top: 0;
+            right: -15px;
+            transition-duration: 0.4s;
+        }
+
+        .button:hover span {
+            padding-right: 15px;
+        }
+
+        .button:hover span:after {
+            opacity: 1;
+            right: 0;
+        }
+
+        .deleteButton {
+            transition-duration: 0.4s;
+            border-radius: 4px;
+            display: inline-block;
+            background-color: #fb2576;
+            border: none;
+            color: #3F0071;
+            text-align: center;
+            font-size: 12px;
+            padding: 6px;
+            width: 100px;
+            cursor: pointer;
+            font-family: "Fuzzy Bubbles";
+            font-weight: bold;
+            visibility: hidden;
+        }
+
+        .deleteButton span {
+            cursor: pointer;
+            display: inline-block;
+            position: relative;
+            transition-duration: 0.4s;
+        }
+
+        .deleteButton span:after {
+            content: '\00d7';
+            position: absolute;
+            opacity: 0;
+            top: 0;
+            right: -15px;
+            transition-duration: 0.4s;
+        }
+
+        .deleteButton:hover span {
+            padding-right: 15px;
+        }
+
+        .deleteButton:hover span:after {
+            opacity: 1;
+            right: 0;
+        }
+
+        h2 {
+            font-family: "Fuzzy Bubbles";
+            color: #3F0071;
+            font-size: 30px;
+        }
+
+        h1 {
+            text-align: center;
+            font-family: "Fuzzy Bubbles";
+            color: #3F0071;
+            font-weight: 400%;
+        }
+
+        br {
+            line-height: 30px;
+        }
+    </style>
+    <body onload = "getAllKeys()">
+        <h1> simple notes </h1>
+        <button onclick="newNote()" id = "newNote" class = "button"> <span> new note </span> </button>
+        <div id = "newNoteHere">
+            <!-- NEW NOTE BUTTON HERE -->
+        </div>
+        <!-- <button onclick = "clearKeys()" style="margin: 10px;"> Clear Keys </button> -->
+        <!-- <button onclick = "getAllKeys()" style="margin: 10px;"> Get All Keys </button> -->
+        <div id = "notes">
+            <h2> notes </h2>
+            <!-- EXISTING NOTES HERE -->
+        </div>
+
+        <script>
+            function newNote() {
+                var lineBreak = document.createElement("BR")
+                //Title of the new note
+                const titleBox = document.createElement("input")
+                titleBox.id = "newNoteTitle"
+                titleBox.name = "title"
+                titleBox.type = "text"
+                const titleLabel = document.createElement("label")
+                titleLabel.innerHTML = "Title: "
+                titleLabel.for = "title"
+                titleLabel.id = "newNoteTitleLabel"
+                document.getElementById("newNoteHere").appendChild(titleLabel)
+                document.getElementById("newNoteHere").appendChild(lineBreak)
+                document.getElementById("newNoteHere").appendChild(titleBox)
+
+                //New note content
+                const noteBox = document.createElement("textarea")
+                noteBox.id = "newNoteContent"
+                document.getElementById("newNoteHere").appendChild(lineBreak)
+                document.getElementById("newNoteHere").appendChild(noteBox)
+
+                //Save Note Button
+                const saveButton = document.createElement("button")
+                saveButton.id = "saveNoteButton"
+                saveButton.className = "button"
+                saveButton.innerHTML = "Save Note"
+                saveButton.addEventListener('click', function handleClick(event) {
+                    var titleInput = document.getElementById("newNoteTitle")
+                    var key = titleInput.value
+                    var noteInput = document.getElementById("newNoteContent")
+                    var content = noteInput.value
+                    localStorage.setItem(key,content)
+                    //alert(localStorage.getItem(key))
+                    location.reload()
+                })
+                document.getElementById("newNoteHere").appendChild(lineBreak)
+                document.getElementById("newNoteHere").appendChild(saveButton)
+            }
+
+            function getAllKeys() {
+                var totalKeys = []
+                for (var key in localStorage) {
+                    totalKeys.push(key)
+                }
+
+                //alert(totalKeys.length)
+                //alert(totalKeys.join(", "))
+
+                var backKeys = totalKeys.reverse()
+                var allKeys = backKeys.slice(6)
+
+                //alert(allKeys.join(", "))
+
+                for (var note in allKeys) {
+                    //alert(note)
+                    var key = allKeys[note]
+                    //alert(allKeys[note])
+                    //alert(localStorage.getItem(allKeys[note]))
+                    
+                    const noteContainer = document.createElement("div")
+                    noteContainer.id = key
+                    var titleDiv = document.createElement("div")
+                    titleDiv.id = "titleDiv" + key
+                    titleDiv.className = "titleDiv"
+
+                    titleDiv.addEventListener ("mouseover", function showDelete(event) {
+                        //Showing the note
+                        var rightId = this.id.replace("titleDiv", "")
+                        const showThis = document.getElementById("deleteButton" + rightId)
+                        const showThisToo = document.getElementById("deleteSpan" + rightId)
+                        //console.log(rightId)
+                        showThis.style.visibility = "visible"
+                        showThisToo.style.visibility = "visible" 
+                    })
+
+                    titleDiv.addEventListener ("mouseout", function showDelete(event) {
+                        //Hiding the note
+                        var rightId = this.id.replace("titleDiv", "")
+                        const hideThis = document.getElementById("deleteButton" + rightId)
+                        const hideThisToo = document.getElementById("deleteSpan" + rightId)
+                        //console.log(rightId)
+                        hideThis.style.visibility = "hidden"
+                        hideThisToo.style.visibility = "hidden"                        
+                    })
+
+                    //Buttons and titleDiv
+                    var deleteButton = document.createElement("button")
+                    deleteButton.id = "deleteButton" + key
+                    deleteButton.className = "deleteButton"
+                    //console.log("deleteButton: " + deleteButton.className)
+                    var deleteSpan = document.createElement("span")
+                    deleteSpan.id = "deleteSpan" + key
+                    deleteSpan.className = key
+                    deleteSpan.innerHTML = "delete note"
+                    deleteButton.appendChild(deleteSpan)
+                    //Removing the note
+                    deleteButton.addEventListener ("click", function deleteThisKey(event) {
+                        var removeThis = this.id.replace("deleteButton", "")
+                        localStorage.removeItem(removeThis)
+                        location.reload()
+                    })
+                    
+
+                    //Title
+                    var noteTitle = document.createElement("text")
+                    noteTitle.id = "noteTitle"
+                    noteTitle.innerHTML = key
+
+                    //Line Breaks
+                    var lineBreak = document.createElement("BR")
+                    lineBreak.className = "linebreak"
+                    var secondBreak = document.createElement("BR")
+                    secondBreak.className = "linebreak"
+                    
+                    //Note itself
+                    var noteContent = document.createElement("text")
+                    noteContent.id = "noteContent"
+                    noteContent.innerHTML = localStorage.getItem(key)
+                    
+                    //Showing notes
+                    titleDiv.appendChild(noteTitle)
+                    titleDiv.appendChild(deleteButton)
+                    noteContainer.appendChild(titleDiv)
+                    noteContainer.appendChild(lineBreak)
+                    noteContainer.appendChild(noteContent)
+                    document.getElementById("notes").appendChild(noteContainer)
+                    document.getElementById("notes").appendChild(secondBreak)
+                }
+                
+            }            
+
+            function clearKeys() {
+                localStorage.clear()
+                location.reload()
+            }
+
+        </script>
+    </body>
+</html>
