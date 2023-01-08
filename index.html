@@ -117,6 +117,10 @@
         border-color: black;
         border-style: solid;
     }
+    
+    a {
+        text-decoration: none;
+    }
 </style>
 
 <body>
@@ -139,23 +143,28 @@
         <button onclick="frequency()"> frequency </button>
         <button onclick="counter()"> counter </button>
         <button onclick="notes()"> notes </button>
+        <button onclick="booster()"> mood booster </button>
     </div>
 
     <script>
         function frequency() {
-            window.location.assign("frequency/frequency05.html")
+            window.open("frequency/frequency05.html", '_blank')
         }
         
         function redirector() {
-            window.location.assign("redirector/redirector.html")
+            window.open("redirector/redirector.html", '_blank')
         }
         
         function notes() {
-            window.location.assign("notes/Notes.html")
+            window.open("notes/Notes.html", '_blank')
         }
         
         function counter() {
-            window.location.assign("counter/counter.html")
+            window.open("counter/counter.html", '_blank')
+        }
+        
+        function boost() {
+            window.open("moodbooster/booster.html", '_blank')
         }
         
         var show = document.getElementById("dropdownContent")
