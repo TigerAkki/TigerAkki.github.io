@@ -46,15 +46,30 @@
         font-size: 50px;
     }
 
+    #favLink {
+        font-family: Fredoka One;
+        height: 24px;
+        padding: 0px;
+        font-size: 12px;
+        border-radius: 6px;
+        border-width: 0px;
+        margin-left: 7px;
+        margin-right: 7px;
+        background-color: rgb(72, 8, 175);
+        transition-duration: 0.4s;
+        width: 30px;
+    }
+
     button {
         font-family: Fredoka One;
         height: 24px;
         border-radius: 6px;
         border-width: 0px;
-        margin-left: 10px;
+        margin-left: 7px;
         background-color: rgb(72, 8, 175);
         transition-duration: 0.4s;
         width: 90px;
+        cursor: pointer;
     }
 
     span {
@@ -89,7 +104,7 @@
     
     input{
         height: 25px;
-        width: 530px;
+        width: 500px;
         border-radius: 6px;
         border-width: 0px;
         background-color: rgb(72, 8, 175);
@@ -174,11 +189,31 @@
     
     a {
         text-decoration: none;
+        font-family: Fredoka One;
     }
 
+    * {
+        box-sizing: border-box;
+    }
+
+    #column {
+        float: left;
+        width: 50%;
+        padding: 10px;
+    }
+
+    #row:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+
+    #favLinks {
+        text-align: left;
+    }
 </style>
 
-<body>
+<body onload = "onLoad()">
     <div class="container" onclick="myFunction(this)">
         <div class="bar1"></div>
         <div class="bar2"></div>
@@ -195,12 +230,24 @@
 
     <p></p>
 
-    <div id = "linker">
-        <input id = "linkHere" type = "url" value = "https://" />
-        <button id = "createLink" onclick="newLink()"> submit <span></span> </button>
-    </div>
+    <div id = "row">
+        <div id = "column">
+            <div id = "linker">
+                <button id = "favLink" onclick="saveFav()"> ★ </button>
+                <input id = "linkHere" type = "url" value = "https://" />
+                <button id = "createLink" onclick="newLink()"> submit <span></span> </button>
+            </div>
+        
+            <div id = "redirectHere"> </div>
+        </div>
 
-    <div id = "redirectHere"> </div>
+        <div id = "column">
+            <button id = "createLink" onclick = "clearKeys()"> clear favs </button>
+            <br>
+            <br>
+            <div id = "favLinks"></div>
+        </div>
+    </div>
 
     <script>
         var linkInput = document.getElementById("linkHere")
@@ -234,13 +281,59 @@
 	var show = document.getElementById("dropdownContent")
 
 	function myFunction(x) {
-            x.classList.toggle("change")
-            
-            if (show.style.display === "block") {
-                show.style.display = "none"
-            } else {
-                show.style.display = "block"
-            }
+        x.classList.toggle("change")
+        
+        if (show.style.display === "block") {
+            show.style.display = "none"
+        } else {
+            show.style.display = "block"
         }
+    }
+
+    function saveFav() {
+        // linkInput is defined
+        var inputRn = linkInput.value
+        var pathName = encodeURIComponent(inputRn)
+        var compPath = "https://puyallupsd.schoology.com/link?a=&path=" + pathName
+        localStorage.setItem(inputRn, compPath)
+        console.log(localStorage.getItem(inputRn))
+        onload()
+    }
+
+    function onLoad() {
+        var favsHere = document.getElementById("favLinks")
+        favsHere.innerHTML = ""
+
+        var allKeys = []
+        for (var key in localStorage) {
+            allKeys.push(key)
+        }
+
+        var backKeys = allKeys.reverse()
+        var allKeys = backKeys.slice(6)
+
+        console.log(allKeys)
+
+        for (var link in allKeys) {
+            //if ()
+            var key = allKeys[link]
+            console.log(key)
+            console.log(localStorage.getItem(key))
+            var fLink = document.createElement("A")
+            var lineBreak = document.createElement("BR")
+            var lineBreak1 = document.createElement("BR")
+            fLink.href = localStorage.getItem(key)
+            fLink.innerHTML = key
+
+            favsHere.appendChild(fLink)
+            favsHere.appendChild(lineBreak)
+            favsHere.appendChild(lineBreak1)
+        }
+    }
+
+    function clearKeys() {
+        localStorage.clear()
+        location.reload()
+    }
     </script>
 </body>
