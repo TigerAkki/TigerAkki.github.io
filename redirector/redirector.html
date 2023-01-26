@@ -190,6 +190,7 @@
     a {
         text-decoration: none;
         font-family: Fredoka One;
+        color: blue;
     }
 
     * {
@@ -234,7 +235,7 @@
         <div id = "column">
             <div id = "linker">
                 <button id = "favLink" onclick="saveFav()"> ★ </button>
-                <input id = "linkHere" type = "url" value = "https://" />
+                <input id = "linkHere" type = "url" />
                 <button id = "createLink" onclick="newLink()"> submit <span></span> </button>
             </div>
         
@@ -278,62 +279,67 @@
             }
         })
 
-	var show = document.getElementById("dropdownContent")
+        var show = document.getElementById("dropdownContent")
 
-	function myFunction(x) {
-        x.classList.toggle("change")
-        
-        if (show.style.display === "block") {
-            show.style.display = "none"
-        } else {
-            show.style.display = "block"
-        }
-    }
-
-    function saveFav() {
-        // linkInput is defined
-        var inputRn = linkInput.value
-        var pathName = encodeURIComponent(inputRn)
-        var compPath = "https://puyallupsd.schoology.com/link?a=&path=" + pathName
-        localStorage.setItem(inputRn, compPath)
-        console.log(localStorage.getItem(inputRn))
-        onload()
-    }
-
-    function onLoad() {
-        var favsHere = document.getElementById("favLinks")
-        favsHere.innerHTML = ""
-
-        var allKeys = []
-        for (var key in localStorage) {
-            allKeys.push(key)
+        function myFunction(x) {
+            x.classList.toggle("change")
+            
+            if (show.style.display === "block") {
+                show.style.display = "none"
+            } else {
+                show.style.display = "block"
+            }
         }
 
-        var backKeys = allKeys.reverse()
-        var allKeys = backKeys.slice(6)
-
-        console.log(allKeys)
-
-        for (var link in allKeys) {
-            //if ()
-            var key = allKeys[link]
-            console.log(key)
-            console.log(localStorage.getItem(key))
-            var fLink = document.createElement("A")
-            var lineBreak = document.createElement("BR")
-            var lineBreak1 = document.createElement("BR")
-            fLink.href = localStorage.getItem(key)
-            fLink.innerHTML = key
-
-            favsHere.appendChild(fLink)
-            favsHere.appendChild(lineBreak)
-            favsHere.appendChild(lineBreak1)
+        function saveFav() {
+            var inputRn = linkInput.value
+            var pathName = encodeURIComponent(inputRn)
+            var compPath = "https://puyallupsd.schoology.com/link?a=&path=" + pathName
+            localStorage.setItem(inputRn, compPath)
+            console.log(localStorage.getItem(inputRn))
+            reload()
         }
-    }
 
-    function clearKeys() {
-        localStorage.clear()
-        location.reload()
-    }
+        function onLoad() {
+            linkInput.focus()
+            linkInput.value = "https://"
+            reload()
+        }
+
+        function reload() {
+            var favsHere = document.getElementById("favLinks")
+            favsHere.innerHTML = ""
+
+            var allKeys = []
+            for (var key in localStorage) {
+                allKeys.push(key)
+            }
+
+            var backKeys = allKeys.reverse()
+            var allKeys = backKeys.slice(6)
+
+            console.log(allKeys)
+
+            for (var link in allKeys) {
+                //if ()
+                var key = allKeys[link]
+                console.log(key)
+                console.log(localStorage.getItem(key))
+                var fLink = document.createElement("A")
+                var lineBreak = document.createElement("BR")
+                var lineBreak1 = document.createElement("BR")
+                fLink.href = localStorage.getItem(key)
+                fLink.innerHTML = key
+
+                favsHere.appendChild(fLink)
+                favsHere.appendChild(lineBreak)
+                favsHere.appendChild(lineBreak1)
+            }
+        }
+
+        function clearKeys() {
+            localStorage.clear()
+            reload()
+        }
     </script>
 </body>
