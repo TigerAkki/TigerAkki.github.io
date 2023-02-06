@@ -182,9 +182,9 @@ a {
     position: relative;
     background-color: rgb(15, 39, 61);
     float: left;
-    width: 48%;
+    width: 46%;
     padding: 10px;
-    margin: 1%;
+    margin: 2%;
     border-radius: 30px;
     height: 400px;
 }
