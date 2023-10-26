@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title> boost </title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Stick+No+Bills">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Just+Another+Hand">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fuzzy+Bubbles">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dancing+Script">
+</head>
+
+<style>
+    body {
+        background: rgb(22, 22, 22);
+    }  
+    
+    #titleBox {
+        text-align: center;
+        justify-content: center;
+        display: block;
+        width: 100%;
+        height: 75px;
+        font-size: 70px;
+        font-family: Just Another Hand;
+        color:rgb(39, 147, 225);
+    }
+
+    #spacer {
+        text-align: center;
+        justify-content: center;
+        display: block;
+        width: 100%;
+        height: 15px;
+    }
+
+    #buttons {
+        text-align: center;
+        justify-content: center;
+        display: block;
+        width: 100%;
+        height: 30px;
+    }
+
+    button {
+        font-family: Fredoka One;
+        height: 34px;
+        border-radius: 6px;
+        border-width: 2px;
+        border-color: rgb(39, 147, 225);
+        margin-left: 10px;
+        background-color: rgba(39, 147, 225, 0.4);
+        transition-duration: 0.4s;
+        width: 120px;
+        border-style: solid;
+    }
+
+    button:hover {
+        cursor: pointer;
+    }
+
+    .container {
+        display: block;
+        cursor: pointer;
+        position: absolute;
+        top: 2%;
+        right: 2%;
+    }
+
+    .bar1, .bar2, .bar3 {
+        width: 35px;
+        height: 5px;
+        background-color: #333;
+        margin: 6px 0;
+        transition: 0.2s;
+    }
+
+    .change .bar1 {
+        transform: translate(0, 11px) rotate(-45deg);
+    }
+
+    .change .bar2 {
+        opacity: 0;
+    }
+
+    .change .bar3 {
+        transform: translate(0, -11px) rotate(45deg);
+    }
+
+    #dropdownContent {
+        position: absolute;
+        top: 50px;
+        right: 0.8%;
+        background-color: rgb(0, 132, 155);
+        max-width: 90px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0, 0.2);
+        z-index: 1;
+        text-align: center;
+        align-items: center;
+        font-family: Fredoka One;
+        font-size: small;
+    }
+
+    #dropdownContent a {
+        color: black;
+        padding: 12px 3px;
+        display: block;
+        text-align: center;
+        border-width: 1px;
+        border-color: black;
+        border-style: solid;
+    }
+
+    #paper {
+        width: 700px;
+        height: 700px;
+        position: relative;
+        margin: 20px auto;
+        padding-top: 40px;
+        padding-bottom: 40px;
+        background-color: white;
+        box-shadow: 0px 0px 5px 0px #888;
+    }
+
+    /* styling red vertical line */
+    #paper::before {
+        content: '';
+        width: 2px;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 40px;
+        background-color: rgba(255,0,0,0.6);
+    }
+
+    /* styling blue horizontal lines */
+    #pattern {
+        height: 100%;
+        background-image: repeating-linear-gradient(white 0px, white 24px, teal 25px);
+    }
+
+    /* styling text content */
+    #content {
+        padding-top: 0px;
+        padding-left: 56px;
+        padding-right: 16px;
+        line-height: 33px;
+        font-family: 'Just Another Hand', cursive;
+        font-size: 25px;
+        letter-spacing: 1px;
+        word-spacing: 5px;
+    }
+
+    .fraction {
+        display: inline-block;
+        vertical-align: middle;
+        margin: 0 0.2em 0.4ex;
+        text-align: center;
+    }
+
+    .fraction > span {
+        display: block;
+        padding-top: 0.15em;
+    }
+
+    .fraction span.fdn {
+        border-top: thin solid black;
+    }
+
+    .fraction span.bar {
+        display: none;
+    }
+    
+    #strike{
+        text-decoration: line-through;
+    }
+
+    #smaller{
+        font-size: small;
+    }
+
+    #one, #two, #three, #four, #five, #six {
+        display: none;
+    }
+</style>
+
+<body>
+    <div class="container" onclick="myFunction(this)">
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
+    </div>
+
+    <div id = "spacer"></div>
+
+    <div id = "titleBox">
+        mood boost
+    </div>
+
+    <div id="paper">
+        <div id="pattern">
+          <div id="content">
+            Solve for <var>?</var>
+            <br>
+            Let: <var>F(x) = H(x)∙G(x)</var>
+            <br>
+            <var>G(x) = C(x)</var>
+            <br>
+            <var>W(x) = M(ln(x))</var>
+            <br>
+            <br>
+            <var>? = F(0)∙W(e<sup>e</sup>)</var>
+            <div id = "one">
+                <var>? = H(0)∙G(0)∙M(ln(e<sup>e</sup>))</var>
+            </div>
+            <div id = "two">
+                <var>? = H(0)C(0)∙M(e)</var>
+            </div>
+            <div id = "three">
+                <var>Hoco with me?</var>
+            </div>
+            <br>
+            <button id = "next" onclick = "nextStep()"> next step </button>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        var show = document.getElementById("dropdownContent")
+        
+        function myFunction(x) {
+            x.classList.toggle("change")
+
+            if (show.style.display === "block") {
+                show.style.display = "none"
+            } else {
+                show.style.display = "block"
+            }
+        }
+
+        i = 0
+        var nums = {
+            1:"one",
+            2:"two",
+            3:"three"
+        }
+
+        function nextStep() {
+            i = i + 1
+            document.getElementById(nums[i]).style.display = "block"
+        }
+
+        document.addEventListener("keydown", (event) => {
+            if (event.code === 'Enter') {
+                nextStep()
+            }
+        })        
+    </script>
+</body>
+</html>
